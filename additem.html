@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Items List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <h1 class="text-center">Add Item List</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-5">
+                <table class="table table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th width="5%"><input type="checkbox" id="checkboxAlls" /></th>
+                            <th width="30%">Item Name</th>
+                            <th>Item Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox" class="checkboxItem" value="" /></td>
+                            <td>Nokia Mobile</td>
+                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="checkboxItem" value="" /></td>
+                            <td>Nokia Mobile</td>
+                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="checkboxItem" value=""  /></td>
+                            <td>Nokia Mobile</td>
+                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="checkboxItem" value=""  /></td>
+                            <td>Nokia Mobile</td>
+                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="checkboxItem" value=""  /></td>
+                            <td>Nokia Mobile</td>
+                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" class="checkboxItem" value=""  /></td>
+                            <td>Nokia Mobile</td>
+                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-2 align-items-center">
+                <div class="d-flex justify-content-between align-items-center">
+                    <button type="submit" class="btn btn-primary" id="addItem">Add Item</button>
+                    <button type="submit" class="btn btn-danger" id="removeAll">Remove All</button>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <table class="table table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th colspan="3">Seleclted Item</th>
+                        </tr>
+                    </thead>
+                    <tbody id="selectedItem">
+                        
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $('#checkboxAlls').on('click',function(){
+                $('.checkboxItem').prop('checked',this.checked);
+            })
+            /*Approch 1 But--------Problem with Dummy Data*/
+            // $('#addItem').on('click',function(){
+            //     var checked =[];
+            //     checked = $('tbody input:checked').closest('tr').clone();
+            //     $('#selectedItem').html(checked);
+            //     console.log(checked);
+     
+            // })
+
+            /*Approch 2 But--------Problem with Dummy Data*/
+            $('#addItem').on('click',function(){
+                var trRow = $('tbody input:checkbox:checked').closest('tr').clone();     
+                console.log(trRow);
+            })
+        })
+    </script>
+</body>
+</html>

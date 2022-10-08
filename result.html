@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <!--
+      Need a visual blank slate?
+      Remove all code in `styles.css`!
+    -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <label class="label fw-bold">Search Filter</label>
+        <input type="text" class="form-control mt-2 mb-2" onkeyup="filterTableData(event)" />
+        <button >Reset</button>
+      </div>
+    </div>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>userId</th>
+          <th>id</th>
+          <th>Title</th>
+          <th>Completed</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="tableData">
+        
+      </tbody>
+    </table>
+  </div>
+  </body>
+  <script type="text/javascript" src="script.js"></script>
+  <script>
+    let jasonData;
+    $.ajax({
+      url: './post-data.json',
+      success:function(response){
+
+          jasonData = response
+          originalData = response
+          
+          $(document).trigger('receiveEvent');
+      },beforeSend:function(){
+        $('<p>Please wait loading...</p>').html('#tableData')        
+      }
+    }).done(function(){
+      swal("Successful", "You json data insert into table successfully", "success");
+    })
+    
+
+    $(document).on('receiveEvent', function(){
+      var result='';
+      $.each(jasonData,function(index,field){
+          result += "<tr id=" + field.id + "><td>" + field.id + "</td>";
+          result += "<td>" + field.userId + "</td>";
+          result += "<td>" + field.title + "</td>";
+          result += "<td>" + field.body + "</td>";
+          result += "<td><button class='btn' id=" + field.id + " onClick='deleteItem(event," + index + ")' ><i class='fa fa-trash' aria-hidden='true'></i></button><button class='btn' id=" + field.id + "><i class='fa fa-pencil-square-o' aria-hidden='true'></i></button></td>";
+          result += "</tr>";
+      })
+      $('#tableData').html(result)
+    })
+
+    function deleteItem(e,id){
+      //-----------1st Approch------------
+      // console.log(id, 'ID');
+      // console.log(e, 'Event');
+      // $('#'+id).remove();
+      //-----------2nd Approch------------
+      console.log(jasonData[id])
+      jasonData.splice(id,1);
+      console.log(jasonData)
+      $(document).trigger('receiveEvent');
+      //-----------3rd Approch------------
+    }
+    function filterTableData(e)
+    {
+      if (e.target.value.length === 0) {
+          jasonData = originalData
+          $(document).trigger('receiveEvent');
+          return
+      }
+      jasonData = originalData
+
+      var filterVal = e.target.value;
+
+      jasonData =  jasonData.filter(function(value,index){
+           return JSON.stringify(value).includes(filterVal);
+      })
+
+      $(document).trigger('receiveEvent');
+    }
+  </script>
+
+</html>

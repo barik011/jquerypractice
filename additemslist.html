@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ListBox Item Move</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" />
+    <script  src="https://code.jquery.com/jquery-1.9.1.js"></script>
+    <style>
+        ul.itemColumn {
+            padding:5px 10px;
+            width: 250px;
+            min-height: 300px;
+            border: 1px solid rgb(193, 193, 193);
+            list-style: none;
+        }
+    </style>
+	
+	 <script type="text/javascript"> 
+
+$('#check_all').click(function() {
+    $('input[class=select_all]').prop('checked', true);
+});
+
+
+	 
+            function selectAll(){  
+                var ele=document.querySelectorAll('.select_all');  
+                for(var i=0; i<ele.length; i++){  
+                    if(ele[i].type=='checkbox')  
+                        ele[i].checked=true;  
+                }  
+            }  
+			
+			function addSelected(){
+			
+			  var ele=document.querySelectorAll('.select_all');  
+                for(var i=0; i<ele.length; i++){  
+                    if(ele[i].type=='checkbox'){  
+                       if(ele[i].checked==true){
+					   
+					   var val  = ele[i].value;
+					   var ul = $('#selected_element');
+						$('li', ul).each(function() {
+						if($('li:contains("' +val+ '")', ul).length == 1)
+						$(this).remove();
+						});
+					    var html ='<li class="cl_check" >'+val+'<input type="button" class="btn btn-danger" value="X" onclick=\'$(this).closest(".cl_check").remove();\'></li>';
+						$("#selected_element").append(html); 
+					   }  
+						}
+                }  
+			}
+			
+			function removeAll(){
+			
+			$("#selected_element").empty();
+			}
+			
+            function deSelect(){  
+                var ele=document.getElementsByName('chk');  
+                for(var i=0; i<ele.length; i++){  
+                    if(ele[i].type=='checkbox')  
+                        ele[i].checked=false;  
+                      
+                }  
+            }
+
+
+
+			
+        </script>  
+	
+	
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            
+
+            <table style='width:600px;'>
+                <tr>
+                    <td style='width:250px;'>
+                        <b>Group 1:</b><br/> <input type='button' onclick="selectAll()" value ='Checked All'  class="btn bnt-default"/>
+                    <ul id="itemColumn1" class="itemColumn">
+                        <li><input type="checkbox" class="select_all" name="ajax" value="Ajax" />Ajax</li>
+                        <li><input type="checkbox" class="select_all" name="jquery" value="jQuery" />jQuery</li>
+                        <li><input type="checkbox" class="select_all" name="prototype" value="Prototype" />Prototype</li>
+                       
+                    </ul>
+                </td>
+                <td style='width:100px;text-align:center;vertical-align:middle;'>
+                    <input type='button' id='addRight' value ='Add' class="btn bnt-default" onclick="addSelected()" style="margin-bottom:10px;"/>
+                   
+                </td>
+                <td style='width:250px;'>
+                    <b>Group 2: </b><br/><input type='button' id='btnRemoveAll' value ='Remove All'  class="btn bnt-default" onclick="removeAll()">
+                    <ul id="selected_element" class="itemColumn">
+                     
+                      </ul>
+                </td>
+            </tr>
+            </table>
+            
+
+
+        </div>
+    </div>
+    <script>
+//         $(document).ready(function() {
+//          $('#btnRight').click(function(e) {
+//         var selectedOpts = $('input[type="checkbox"]:checked');
+//         if (selectedOpts.length == 0) {
+//             alert("Nothing to move.");
+//             e.preventDefault();
+//         }
+       
+//         $('#itemColumn2').append($(selectedOpts).clone());
+//         $(selectedOpts).remove();
+//         e.preventDefault();
+//     });
+
+//     $('#btnLeft').click(function(e) {
+//         var selectedOpts = $('input[type="checkbox"]:checked');
+//         if (selectedOpts.length == 0) {
+//             alert("Nothing to move.");
+//             e.preventDefault();
+//         }
+
+//         $('#itemColumn1').append($(selectedOpts).clone());
+//         $(selectedOpts).remove();
+//         e.preventDefault();
+//     });
+// });
+    </script>
+</body>
+</html>
