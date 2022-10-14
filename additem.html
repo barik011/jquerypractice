@@ -97,8 +97,13 @@
 
             /*Approch 2 But--------Problem with Dummy Data*/
             $('#addItem').on('click',function(){
-                var trRow = $('tbody input:checkbox:checked').closest('tr').clone();     
-                console.log(trRow);
+                var trRow =[];
+                trRow = $('tbody input:checkbox:checked').closest('tr');     
+                $(this).find('td').each(function(){
+                    a.push($(this).text());
+                });
+                    $('#selectedItem').html(trRow);
+                
             })
         })
     </script>
